@@ -3,7 +3,7 @@
     "languageLocalName": "Italiano",
     "tempUnitFahrenheit": false,
     "messagesWarn": {
-        "CJCCalibrationDone": {
+        "CalibrationDone": {
             "message": "Calibrazione\ncompletata!"
         },
         "ResetOKMessage": {
@@ -29,6 +29,9 @@
         },
         "WarningThermalRunaway": {
             "message": "Temperatura\nfuori controllo"
+        },
+        "WarningTipShorted": {
+            "message": "Punta in cortocircuito!"
         },
         "SettingsCalibrationWarning": {
             "message": "Prima di riavviare assicurati che la punta e l'impugnatura siano a temperatura ambiente!"
@@ -162,7 +165,7 @@
         },
         "ProfilePreheatSpeed": {
             "displayText": "Velocità\npreriscaldamento",
-            "description": "Imposta la velocità di preriscaldamento [gradi al secondo]"
+            "description": "Imposta la velocità di preriscaldamento [°C/s]"
         },
         "ProfilePhase1Temp": {
             "displayText": "Temperatura\nfase 1",
@@ -206,7 +209,7 @@
         },
         "ProfileCooldownSpeed": {
             "displayText": "Velocità\nraffreddamento",
-            "description": "Imposta la velocità di raffreddamento al termine del profilo di riscaldamento [gradi al secondo]"
+            "description": "Imposta la velocità di raffreddamento al termine del profilo di riscaldamento [°C/s]"
         },
         "MotionSensitivity": {
             "displayText": "Sensibilità\nal movimento",

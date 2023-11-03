@@ -3,7 +3,7 @@
     "languageLocalName": "Português",
     "tempUnitFahrenheit": false,
     "messagesWarn": {
-        "CJCCalibrationDone": {
+        "CalibrationDone": {
             "message": "Calibração\nefetuada!"
         },
         "ResetOKMessage": {
@@ -29,6 +29,9 @@
         },
         "WarningThermalRunaway": {
             "message": "Thermal\nRunaway"
+        },
+        "WarningTipShorted": {
+            "message": "!Tip Shorted!"
         },
         "SettingsCalibrationWarning": {
             "message": "Antes de reiniciar certifique-se que o ferro está à temperatura ambiente!"

@@ -107,7 +107,7 @@ enum class SettingsItemIndex : uint8_t {
 };
 
 struct TranslationIndexTable {
-  uint16_t CJCCalibrationDone;
+  uint16_t CalibrationDone;
   uint16_t ResetOKMessage;
   uint16_t SettingsResetMessage;
   uint16_t NoAccelerometerMessage;
@@ -116,6 +116,7 @@ struct TranslationIndexTable {
   uint16_t UnlockingKeysString;
   uint16_t WarningKeysLockedString;
   uint16_t WarningThermalRunaway;
+  uint16_t WarningTipShorted;
 
   uint16_t SettingsCalibrationWarning;
   uint16_t CJCCalibrating;

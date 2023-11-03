@@ -2,8 +2,10 @@
 // Created by laura on 24.04.23.
 //
 
-#include "OperatingModes.h"
 #include "SolderingCommon.h"
+#include "OperatingModes.h"
+#include "configuration.h"
+#include "history.hpp"
 
 extern bool heaterThermalRunaway;
 
@@ -16,7 +18,8 @@ void detailedPowerStatus() {
   // Print wattage
   {
     uint32_t x10Watt = x10WattHistory.average();
-    if (x10Watt > 999) { // If we exceed 99.9W we drop the decimal place to keep it all fitting
+    if (x10Watt > 999) {
+      // If we exceed 99.9W we drop the decimal place to keep it all fitting
       OLED::print(SmallSymbolSpace, FontStyle::SMALL);
       OLED::printNumber(x10WattHistory.average() / 10, 3, FontStyle::SMALL);
     } else {
@@ -42,30 +45,35 @@ void basicSolderingStatus(bool boostModeOn) {
   if (OLED::getRotation()) {
     // battery
     gui_drawBatteryIcon();
-    OLED::print(LargeSymbolSpace, FontStyle::LARGE); // Space out gap between battery <-> temp
-    gui_drawTipTemp(true, FontStyle::LARGE);         // Draw current tip temp
+    // Space out gap between battery <-> temp
+    OLED::print(LargeSymbolSpace, FontStyle::LARGE);
+    // Draw current tip temp
+    gui_drawTipTemp(true, FontStyle::LARGE);
 
-    // We draw boost arrow if boosting, or else gap temp <-> heat
-    // indicator
-    if (boostModeOn)
+    // We draw boost arrow if boosting,
+    // or else gap temp <-> heat indicator
+    if (boostModeOn) {
       OLED::drawSymbol(2);
-    else
+    } else {
       OLED::print(LargeSymbolSpace, FontStyle::LARGE);
+    }
 
     // Draw heating/cooling symbols
     OLED::drawHeatSymbol(X10WattsToPWM(x10WattHistory.average()));
   } else {
     // Draw heating/cooling symbols
     OLED::drawHeatSymbol(X10WattsToPWM(x10WattHistory.average()));
-    // We draw boost arrow if boosting, or else gap temp <-> heat
-    // indicator
-    if (boostModeOn)
+    // We draw boost arrow if boosting,
+    // or else gap temp <-> heat indicator
+    if (boostModeOn) {
       OLED::drawSymbol(2);
-    else
+    } else {
       OLED::print(LargeSymbolSpace, FontStyle::LARGE);
-    gui_drawTipTemp(true, FontStyle::LARGE); // Draw current tip temp
-
-    OLED::print(LargeSymbolSpace, FontStyle::LARGE); // Space out gap between battery <-> temp
+    }
+    // Draw current tip temp
+    gui_drawTipTemp(true, FontStyle::LARGE);
+    // Space out gap between battery <-> temp
+    OLED::print(LargeSymbolSpace, FontStyle::LARGE);
 
     gui_drawBatteryIcon();
   }
@@ -88,8 +96,10 @@ bool checkExitSoldering(void) {
         // If we have moved recently; in the last second
         // Then exit soldering mode
 
-        if (((TickType_t)(xTaskGetTickCount() - lastMovementTime)) < (TickType_t)(TICKS_SECOND)) {
+        // Movement occurred in last update
+        if (((TickType_t)(xTaskGetTickCount() - lastMovementTime)) < (TickType_t)(TICKS_SECOND / 5)) {
           currentTempTargetDegC = 0;
+          lastMovementTime      = 0;
           return true;
         }
       }
@@ -102,6 +112,8 @@ bool checkExitSoldering(void) {
   if (shouldShutdown()) {
     // shutdown
     currentTempTargetDegC = 0;
+    lastMovementTime      = xTaskGetTickCount(); // We manually move the movement time to now such that shutdown timer is reset
+
     return true; // we want to exit soldering mode
   }
 #endif
@@ -153,4 +165,17 @@ int8_t getPowerSourceNumber(void) {
     }
   }
   return sourceNumber;
+}
+
+// Returns temperature of the tip in *C/*F (based on user settings)
+TemperatureType_t getTipTemp(void) {
+#ifdef FILTER_DISPLAYED_TIP_TEMP
+  static history<TemperatureType_t, FILTER_DISPLAYED_TIP_TEMP> Filter_Temp;
+  TemperatureType_t                                            reading = getSettingValue(SettingsOptions::TemperatureInF) ? TipThermoModel::getTipInF() : TipThermoModel::getTipInC();
+  Filter_Temp.update(reading);
+  return Filter_Temp.average();
+
+#else
+  return getSettingValue(SettingsOptions::TemperatureInF) ? TipThermoModel::getTipInF() : TipThermoModel::getTipInC();
+#endif
 }

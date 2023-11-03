@@ -3,7 +3,7 @@
     "languageLocalName": "Română",
     "tempUnitFahrenheit": true,
     "messagesWarn": {
-        "CJCCalibrationDone": {
+        "CalibrationDone": {
             "message": "Calibration\ndone!"
         },
         "ResetOKMessage": {
@@ -29,6 +29,9 @@
         },
         "WarningThermalRunaway": {
             "message": "Încălzire\nEşuată"
+        },
+        "WarningTipShorted": {
+            "message": "!Tip Shorted!"
         },
         "SettingsCalibrationWarning": {
             "message": "Înainte de repornire, asiguraţi-vă că vârful şi mânerul sunt la temperatura camerei!"

@@ -3,7 +3,7 @@
     "languageLocalName": "Magyar",
     "tempUnitFahrenheit": false,
     "messagesWarn": {
-        "CJCCalibrationDone": {
+        "CalibrationDone": {
             "message": "Kalibráció\nkész!"
         },
         "ResetOKMessage": {
@@ -29,6 +29,9 @@
         },
         "WarningThermalRunaway": {
             "message": "Kontrollálatlan\nhőmérséklet!"
+        },
+        "WarningTipShorted": {
+            "message": "!Tip Shorted!"
         },
         "SettingsCalibrationWarning": {
             "message": "Újraindítás előtt a hegy és az eszköz legyen szobahőmérsékletű!"

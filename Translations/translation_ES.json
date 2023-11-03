@@ -3,7 +3,7 @@
     "languageLocalName": "Castellano",
     "tempUnitFahrenheit": false,
     "messagesWarn": {
-        "CJCCalibrationDone": {
+        "CalibrationDone": {
             "message": "¡Calibracion\nlista!"
         },
         "ResetOKMessage": {
@@ -29,6 +29,9 @@
         },
         "WarningThermalRunaway": {
             "message": "Térmico\nFuera de control"
+        },
+        "WarningTipShorted": {
+            "message": "!Tip Shorted!"
         },
         "SettingsCalibrationWarning": {
             "message": "¡Antes de reiniciar, asegúrese de que la punta y el mango estén a temperatura ambiente!"

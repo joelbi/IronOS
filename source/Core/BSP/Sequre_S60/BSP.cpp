@@ -1,6 +1,7 @@
 // BSP mapping functions
 
 #include "BSP.h"
+#include "BootLogo.h"
 #include "HUB238.hpp"
 #include "I2C_Wrapper.hpp"
 #include "Pins.h"
@@ -208,7 +209,7 @@ bool isTipDisconnected() {
 
 void    setStatusLED(const enum StatusLED state) {}
 uint8_t preStartChecks() {
-  if (!hub238_has_run_selection()) {
+  if (!hub238_has_run_selection() && (xTaskGetTickCount() < TICKS_SECOND * 5)) {
     return 0;
   }
   // We check if we are in a "Limited" mode; where we have to run the PWM really fast
@@ -230,10 +231,12 @@ uint64_t getDeviceID() {
 }
 
 uint8_t getTipResistanceX10() { return TIP_RESISTANCE; }
-
+bool    isTipShorted() { return false; }
 uint8_t preStartChecksDone() { return 1; }
 
-uint8_t getTipThermalMass() { return TIP_THERMAL_MASS; }
-uint8_t getTipInertia() { return TIP_THERMAL_INERTIA; }
+uint16_t getTipThermalMass() { return TIP_THERMAL_MASS; }
+uint16_t getTipInertia() { return TIP_THERMAL_INERTIA; }
 
 void setBuzzer(bool on) {}
+
+void showBootLogo(void) { BootLogo::handleShowingLogo((uint8_t *)FLASH_LOGOADDR); }

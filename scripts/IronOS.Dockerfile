@@ -1,29 +1,35 @@
+# Default Reference Distro for development env & deploy:
+# * Alpine Linux, version 3.16 *
 FROM alpine:3.16
 LABEL maintainer="Ben V. Brown <ralim@ralimtek.com>"
 
-WORKDIR /build
-# Installing the two compilers, python3, python3 pip, clang format
-# Compilders ->gcc-* newlib-*
-# Python3 -> py*
-# Misc -> findutils make git
-# musl-dev is required for the multi lang firmwares
-# clang is required for clang-format (for dev)
-ARG APK_COMPS="gcc-riscv-none-elf gcc-arm-none-eabi newlib-riscv-none-elf \
-               newlib-arm-none-eabi"
+# Default current dir when container starts
+WORKDIR /build/ironos
+
+# Installing the two compilers (ARM & RISCV), python3 & pip, clang tools, etc.:
+## - compilers: gcc-*, newlib-*
+## - python3: py*, black (required to check Python code formatting)
+## - misc: findutils, make, git, diffutils, zip
+## - musl-dev (required for the multi lang firmwares)
+## - clang (required for clang-format to check C++ code formatting)
+## - shellcheck (to check sh scripts)
+
+ARG APK_COMPS="gcc-riscv-none-elf gcc-arm-none-eabi newlib-riscv-none-elf newlib-arm-none-eabi"
 ARG APK_PYTHON="python3 py3-pip black"
-ARG APK_MISC="findutils make git"
-ARG APK_DEV="musl-dev clang bash clang-extra-tools"
+ARG APK_MISC="findutils make git diffutils zip"
+ARG APK_DEV="musl-dev clang bash clang-extra-tools shellcheck"
 
-# PIP packages
-ARG PIP_PKGS='bdflib'
+# PIP packages to check & test Python code, and generate docs
+ARG PIP_PKGS='bdflib flake8 pymdown-extensions mkdocs mkdocs-autolinks-plugin mkdocs-awesome-pages-plugin mkdocs-git-revision-date-plugin'
 
+# Install system packages using alpine package manager
 RUN apk add --no-cache ${APK_COMPS} ${APK_PYTHON} ${APK_MISC} ${APK_DEV}
 
-# Install Python3 packages
-
+# Install Python3 packages as modules using pip
 RUN python3 -m pip install ${PIP_PKGS}
-# Git trust
-RUN git config --global --add safe.directory /build/source
 
-COPY . /build/source
-COPY ./scripts/ci /build/ci
+# Git trust to avoid related warning
+RUN git config --global --add safe.directory /build/ironos
+
+# Copy the whole source tree working dir into container
+COPY  .  /build/ironos

@@ -1,6 +1,7 @@
 // BSP mapping functions
 
 #include "BSP.h"
+#include "BootLogo.h"
 #include "I2C_Wrapper.hpp"
 #include "IRQ.h"
 #include "Pins.h"
@@ -93,8 +94,10 @@ uint8_t  preStartChecks() { return 1; }
 uint64_t getDeviceID() { return dbg_id_get(); }
 
 uint8_t getTipResistanceX10() { return TIP_RESISTANCE; }
-
+bool    isTipShorted() { return false; }
 uint8_t preStartChecksDone() { return 1; }
 
-uint8_t getTipThermalMass() { return TIP_THERMAL_MASS; }
-uint8_t getTipInertia() { return TIP_THERMAL_MASS; }
+uint16_t getTipThermalMass() { return TIP_THERMAL_MASS; }
+uint16_t getTipInertia() { return TIP_THERMAL_MASS; }
+
+void showBootLogo(void) { BootLogo::handleShowingLogo((uint8_t *)FLASH_LOGOADDR); }
