@@ -26,7 +26,6 @@
 #define PWM_Channel          PWM_CH1
 #define SCL_Pin              GPIO_PIN_11
 #define SDA_Pin              GPIO_PIN_10
-#define MUX_PIN				 GPIO_PIN_12
 
 #define USB_DM_Pin    GPIO_PIN_8
 #define QC_DP_LOW_Pin GPIO_PIN_5
