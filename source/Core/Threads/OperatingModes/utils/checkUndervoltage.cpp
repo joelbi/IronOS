@@ -13,7 +13,7 @@ bool checkForUnderVoltage(void) {
   // Dont check for first 2 seconds while the ADC stabilizes and the DMA fills
   // the buffer
   if (xTaskGetTickCount() > (TICKS_SECOND * 2)) {
-    if ((v < lookupVoltageLevel())) {
+    if ( (v < lookupVoltageLevel()) && ((v < 105) ||(v > 125)) ) {
       currentTempTargetDegC = 0;
       OLED::clearScreen();
       OLED::setCursor(0, 0);

@@ -101,14 +101,14 @@
  * Detailed soldering screen
  * Detailed idle screen (off for first time users)
  */
-#define DETAILED_SOLDERING 0 // 0: Disable 1: Enable - Default 0
-#define DETAILED_IDLE      0 // 0: Disable 1: Enable - Default 0
+#define DETAILED_SOLDERING 1 // 0: Disable 1: Enable - Default 0
+#define DETAILED_IDLE      1 // 0: Disable 1: Enable - Default 0
 
 #define THERMAL_RUNAWAY_TIME_SEC 20
 #define THERMAL_RUNAWAY_TEMP_C   20
 
-#define CUT_OUT_SETTING          0  // default to no cut-off voltage
-#define RECOM_VOL_CELL           33 // Minimum voltage per cell (Recommended 3.3V (33))
+#define CUT_OUT_SETTING          4  // default to no cut-off voltage
+#define RECOM_VOL_CELL           35 // Minimum voltage per cell (Recommended 3.3V (33))
 #define TEMPERATURE_INF          0  // default to 0
 #define DESCRIPTION_SCROLL_SPEED 0  // 0: Slow 1: Fast - default to slow
 #define ANIMATION_LOOP           1  // 0: off 1: on
@@ -132,11 +132,11 @@
 #define MIN_CALIBRATION_OFFSET     100                       // Min value for calibration
 #define PID_POWER_LIMIT            120                       // Sets the max pwm power limit
 #define POWER_LIMIT                0                         // 0 watts default limit
-#define MAX_POWER_LIMIT            120                       // Sets the max power limit
+#define MAX_POWER_LIMIT            140                       // Sets the max power limit
 #define POWER_LIMIT_STEPS          5                         //
 #define OP_AMP_GAIN_STAGE          OP_AMP_GAIN_STAGE_PINECIL // Uses TS100 resistors
 #define TEMP_uV_LOOKUP_HAKKO                                 // Use Hakko lookup table
-#define USB_PD_VMAX                28                        // Maximum voltage for PD to negotiate
+#define USB_PD_VMAX                20                        // Maximum voltage for PD to negotiate
 #define PID_TIM_HZ                 (10)                      // Tick rate of the PID loop
 #define MAX_TEMP_C                 450                       // Max soldering temp selectable °C
 #define MAX_TEMP_F                 850                       // Max soldering temp selectable °F

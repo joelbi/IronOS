@@ -137,7 +137,7 @@ bool parseCapabilitiesArray(const uint8_t numCaps, uint8_t *bestIndex, uint16_t 
       int min_resistance_ohmsx10 = voltage_mv / current_a_x100;
       if (voltage_mv > 0) {
         if (voltage_mv <= (USB_PD_VMAX * 1000)) {
-          if (min_resistance_ohmsx10 <= tipResistance) {
+          if (min_resistance_ohmsx10 <= (tipResistance + 20)) {
             // This is a valid power source we can select as
             if (voltage_mv > *bestVoltage) {
 

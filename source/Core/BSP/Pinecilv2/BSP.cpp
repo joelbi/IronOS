@@ -176,6 +176,7 @@ uint8_t getTipInertia() {
 // The gpio is 5.1k -> diode -> tip -> gnd
 // Source is 3.3V-0.5V
 // Which is around 0.54mA this will induce:
+// 2.5 ohm tip -> 1.49mV (~1500?)
 // 6 ohm tip -> 3.24mV (Real world ~= 3320)
 // 8 ohm tip -> 4.32mV (Real world ~= 4500)
 // Which is definitely measureable
@@ -206,10 +207,10 @@ void FinishMeasureTipResistance() {
   uint8_t newRes = 0;
   if (reading > 8000) {
     // return; // Change nothing as probably disconnected tip
-  } else if (reading < 4000) {
-    newRes = 62;
+  } else if (reading < 2500) {
+    newRes = 25;
   } else {
-    newRes = 80;
+    newRes = 62;
   }
   lastTipResistance = newRes;
 }
